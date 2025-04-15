@@ -10,3 +10,12 @@ output "vault_token" {
 output "vault_namespace" {
   value = hcp_vault_cluster.dev.namespace
 }
+
+output "oc_username" {
+  value = random_pet.cluster_admin.id
+}
+
+output "oc_password" {
+  value     = random_password.cluster_admin.result
+  sensitive = true
+}
