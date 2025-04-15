@@ -14,7 +14,7 @@ variable "default_aws_tags" {
 
 variable "openshift_version" {
   type        = string
-  default     = "4.18"
+  default     = "4.18.7"
   description = "Desired version of OpenShift for the cluster, for example '4.14.20'. If version is greater than the currently running version, an upgrade will be scheduled."
 }
 
@@ -91,4 +91,15 @@ variable "single_nat_gateway" {
   type        = bool
   description = "Single NAT or per NAT for subnet"
   default     = false
+}
+
+variable "hcp_project_id" {
+  type        = string
+  description = "Project ID for HCP resources"
+}
+
+variable "hcp_cidr_block" {
+  type        = string
+  description = "CIDR block for HCP resources"
+  default     = "172.25.16.0/20"
 }
