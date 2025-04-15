@@ -43,7 +43,7 @@ resource "random_password" "cluster_admin" {
 module "rosa-hcp" {
   source                 = "terraform-redhat/rosa-hcp/rhcs"
   version                = "1.6.5"
-  cluster_name           = ""
+  cluster_name           = local.cluster_name
   openshift_version      = var.openshift_version
   replicas               = local.worker_node_replicas
   aws_availability_zones = local.region_azs
