@@ -25,7 +25,7 @@ variable "create_vpc" {
 }
 
 variable "cluster_name" {
-  default     = null
+  default     = "dev"
   type        = string
   description = "The name of the ROSA cluster to create"
 }

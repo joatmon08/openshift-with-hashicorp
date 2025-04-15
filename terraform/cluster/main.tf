@@ -41,17 +41,22 @@ resource "random_password" "cluster_admin" {
 }
 
 module "rosa-hcp" {
-  source                     = "terraform-redhat/rosa-hcp/rhcs"
-  version                    = "1.6.5"
-  cluster_name               = local.cluster_name
-  openshift_version          = var.openshift_version
-  replicas                   = local.worker_node_replicas
-  aws_availability_zones     = local.region_azs
-  create_oidc                = true
-  private                    = var.private_cluster
-  aws_subnet_ids             = var.create_vpc ? var.private_cluster ? module.vpc[0].private_subnets : concat(module.vpc[0].public_subnets, module.vpc[0].private_subnets) : var.aws_subnet_ids
-  create_account_roles       = true
-  create_operator_roles      = true
+  source                 = "terraform-redhat/rosa-hcp/rhcs"
+  version                = "1.6.5"
+  cluster_name           = ""
+  openshift_version      = var.openshift_version
+  replicas               = local.worker_node_replicas
+  aws_availability_zones = local.region_azs
+  create_oidc            = true
+  private                = var.private_cluster
+
+  aws_subnet_ids = var.create_vpc ? var.private_cluster ? module.vpc[0].private_subnets : concat(module.vpc[0].public_subnets, module.vpc[0].private_subnets) : var.aws_subnet_ids
+
+  create_account_roles  = true
+  account_role_prefix   = local.cluster_name
+  create_operator_roles = true
+  operator_role_prefix  = local.cluster_name
+
   admin_credentials_username = random_pet.cluster_admin.id
   admin_credentials_password = random_password.cluster_admin.result
 
