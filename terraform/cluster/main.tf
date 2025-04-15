@@ -45,8 +45,6 @@ module "rosa-hcp" {
   version                    = "1.6.5"
   cluster_name               = local.cluster_name
   openshift_version          = var.openshift_version
-  account_role_prefix        = local.cluster_name
-  operator_role_prefix       = local.cluster_name
   replicas                   = local.worker_node_replicas
   aws_availability_zones     = local.region_azs
   create_oidc                = true
