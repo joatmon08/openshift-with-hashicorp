@@ -15,9 +15,17 @@ resource "vault_auth_backend" "kubernetes" {
   type = "kubernetes"
 }
 
+data "kubernetes_config_map" "kube_ca_cert" {
+  metadata {
+    name      = "kube-root-ca.crt"
+    namespace = "kube-system"
+  }
+}
+
 resource "vault_kubernetes_auth_backend_config" "kubernetes" {
-  backend         = vault_auth_backend.kubernetes.path
-  kubernetes_host = data.terraform_remote_state.cluster.outputs.oc_address
+  backend            = vault_auth_backend.kubernetes.path
+  kubernetes_host    = data.terraform_remote_state.cluster.outputs.oc_address
+  kubernetes_ca_cert = data.kubernetes_config_map.kube_ca_cert.data["ca.crt"]
 }
 
 data "vault_policy_document" "terraform_operator" {
