@@ -14,3 +14,9 @@ variable "hcp_terraform_team" {
   type        = string
   description = "HCP Terraform team"
 }
+
+variable "kubernetes_ca_crt" {
+  type        = string
+  sensitive   = true
+  description = "OpenShift cluster certificate"
+}
