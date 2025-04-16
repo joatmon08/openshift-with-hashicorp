@@ -19,3 +19,7 @@ output "oc_password" {
   value     = random_password.cluster_admin.result
   sensitive = true
 }
+
+output "oc_address" {
+  value = module.rosa-hcp.cluster_api_url
+}
